@@ -27,15 +27,23 @@ class MyClient extends \Goutte\Client
 	$s_url = $_GET['url'];
 	if(isset($_GET['no'])){
 		$no = $_GET['no'];
-		$no = $no - 1;
+		//$no = $no - 1;
+		$s_url = $s_url. "&b=" .$no;
 	} else { 
 		$no = 0;
 	}
+//echo $s_url;
 	$client = new MyClient();
 	$crawler = $client->setUserAgent('sp.safari')->request('GET', $s_url);
-	$url = $crawler->filter('a.sw-Card__space')->eq($no)->attr('href');
+	// 旧$url = $crawler->filter('a.sw-Card__space')->eq($no)->attr('href');
+$check = $crawler->filter('.sw-CardBase')->text();
+if(preg_match('/(.*)他の人は(.*)/', $check)){
+echo "test";exit;
+}
+
+	$url = $crawler->filter('.sw-CardBase .Algo section a')->attr('href');
 	if(isset($_GET['ajax'])){ 
-		echo $url;exit;
+		echo( $url );exit;
 	} else {
 ?>
 <!DOCTYPE html>
@@ -56,14 +64,6 @@ class MyClient extends \Goutte\Client
 <?php
 		echo $url;
 	}
-
-/*$url = $crawler->filter('a.sw-Card__space')->attr('href');
-//$crawler->filter('div.sw-Card__section')->each(function($node) {
-//	$crawler->filter('.AnswerShoppingIntegration__productList')->reduce(function($node) {
-//	echo $crawler->filter('a.sw-Card__space')->eq(1)->attr('href')."\n";
-//});
-//});
-*/
 
 	if(!preg_match("/javascript(.*)/", $url) && !preg_match("|(.*)auctions.yahoo.co.jp(.*)|", $url) && !preg_match("|(.*)/amp(.*)|", $url) && !preg_match("|(.*)/rd\.(.*)|", $url)){
 		$fp = fopen("urlfile.txt","a");
