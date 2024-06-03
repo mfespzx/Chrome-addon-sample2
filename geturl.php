@@ -24,27 +24,40 @@ class MyClient extends \Goutte\Client
         return $this;
     }
 }
-	$s_url = $_GET['url'];
-	if(isset($_GET['no'])){
-		$no = $_GET['no'];
-		//$no = $no - 1;
-		$s_url = $s_url. "&b=" .$no;
-	} else { 
-		$no = 0;
-	}
-//echo $s_url;
-	$client = new MyClient();
-	$crawler = $client->setUserAgent('sp.safari')->request('GET', $s_url);
-	// 旧$url = $crawler->filter('a.sw-Card__space')->eq($no)->attr('href');
+    $s_url = $_GET['url'];
+    $se = $_GET['se'];
+
+    if(isset($_GET['no'])){
+        $no = $_GET['no'];
+        //$no = $no - 1;
+        if($se != "g"){
+            $s_url = $s_url. "&b=" .$no;
+        }
+    } else { 
+        $no = 0;
+    }
+
+    $client = new MyClient();
+    $crawler = $client->setUserAgent('sp.safari')->request('GET', $s_url);
+// 旧$url = $crawler->filter('a.sw-Card__space')->eq($no)->attr('href');
+/*
 $check = $crawler->filter('.sw-CardBase')->text();
 if(preg_match('/(.*)他の人は(.*)/', $check)){
 echo "test";exit;
 }
-
-	$url = $crawler->filter('.sw-CardBase .Algo section a')->attr('href');
-	if(isset($_GET['ajax'])){ 
-		echo( $url );exit;
-	} else {
+*/
+//print_r($crawler->filter('body')->html());exit;
+    if($se != "g"){
+        $url = $crawler->filter('.sw-CardBase .Algo section a')->attr('href');
+    } else { // google
+        $no = ltrim($no, "0") - 1;
+        $url = $crawler->filter('.egMi0 a')->eq($no)->attr('href');
+        preg_match("/^\/url\?q=(.*)&sa(.*)/", $url, $match);
+        $url = $match[1];
+    }
+    if(isset($_GET['ajax'])){ 
+        echo( $url );exit;
+    } else {
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -52,36 +65,37 @@ echo "test";exit;
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-	<script type="text/javascript" src="jq.js"></script>
-	<script type="text/javascript">
-	/*	setTimeout(function () {
-			window.open('about:blank', '_self').close();
-		}, 500);
-	*/</script>
+    <script type="text/javascript" src="jq.js"></script>
+    <script type="text/javascript">
+    /*    setTimeout(function () {
+            window.open('about:blank', '_self').close();
+        }, 500);
+    */
+    </script>
 </head>
 <body>
 <ol>
 <?php
-		echo $url;
-	}
+        echo $url;
+    }
 
-	if(!preg_match("/javascript(.*)/", $url) && !preg_match("|(.*)auctions.yahoo.co.jp(.*)|", $url) && !preg_match("|(.*)/amp(.*)|", $url) && !preg_match("|(.*)/rd\.(.*)|", $url)){
-		$fp = fopen("urlfile.txt","a");
-		fwrite($fp, $url."\n");
-		fclose($fp);
+    if(!preg_match("/javascript(.*)/", $url) && !preg_match("|(.*)auctions.yahoo.co.jp(.*)|", $url) && !preg_match("|(.*)/amp(.*)|", $url) && !preg_match("|(.*)/rd\.(.*)|", $url)){
+        $fp = fopen("urlfile.txt","a");
+        fwrite($fp, $url."\n");
+        fclose($fp);
 ?>
-	<script type="text/javascript">
-		setTimeout(function () {
-			window.open('about:blank', '_self').close();
-		}, 300);
+    <script type="text/javascript">
+        setTimeout(function () {
+            window.open('about:blank', '_self').close();
+        }, 300);
 <?php
-	} else {
+    } else {
 ?>
-	<script type="text/javascript">
-		location.href = "<?php echo $s_url;?>";
+    <script type="text/javascript">
+        location.href = "<?php echo $s_url;?>";
 <?php
-	}
+    }
 ?>
-	</script>
+    </script>
 </body>
 </html>
