@@ -7,7 +7,7 @@
 	<script type="text/javascript" src="jq.js"></script>
 	<script type="text/javascript">
 		setTimeout(function () {
-		//	window.open('about:blank', '_self').close();
+			//window.open('about:blank', '_self').close();
 		}, 500);
 	</script>
 </head>
@@ -17,15 +17,15 @@
 
 	$text = $_GET['text'];
 	echo '<input type="text" class="serchtext" value="'.$text.'" name="text" style="width: 700px;">';
-	$no = $_GET['no'];echo $no;
+	$no = $_GET['no'];
 	echo '<input type="number" class="serchno" value="'.$no.'" name="no" style="width: 3em;">';
-	if(mb_strlen($text) >= 3){
+	if(mb_strlen($text) >= 1){
 		//echo $text;
 		$fp = fopen("wordfile.txt","a");
 		fwrite($fp, $text."\n");
 		fclose($fp);
 	} else {
-		echo "•¶Žš”";exit;
+		echo "æ–‡å­—æ•°";exit;
 	}
 
 ?>
@@ -36,7 +36,7 @@
 
 <script type="text/javascript">
     $(function(){
-      // uAjax’ÊMvƒ{ƒ^ƒ“‚ðƒNƒŠƒbƒN‚µ‚½‚ç”­“®
+      // ã€ŒAjaxé€šä¿¡ã€ãƒœã‚¿ãƒ³ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸã‚‰ç™ºå‹•
 		$('.getajax').on('click',function(){
 			var no = $(this).val();
 			var index = $('.getajax').index(this);
@@ -49,19 +49,23 @@
                     'no' : $('.serchno').val()
 				}
 			})
-			// Ajax’ÊM‚ª¬Œ÷‚µ‚½‚ç”­“®
+			// Ajaxé€šä¿¡ãŒæˆåŠŸã—ãŸã‚‰ç™ºå‹•
 			.done( (data) => {
 				console.log(data);
 				$('.ajaxres').eq(index).val(data);
+				navigator.clipboard.writeText(data);
+				setTimeout(function () {
+					window.open('about:blank', '_self').close();
+				}, 500);
 			})
-			// Ajax’ÊM‚ªŽ¸”s‚µ‚½‚ç”­“®
+			// Ajaxé€šä¿¡ãŒå¤±æ•—ã—ãŸã‚‰ç™ºå‹•
 			.fail( (jqXHR, textStatus, errorThrown) => {
-				alert('Ajax’ÊM‚ÉŽ¸”s‚µ‚Ü‚µ‚½B');
-				console.log("jqXHR          : " + jqXHR.status); // HTTPƒXƒe[ƒ^ƒX‚ð•\Ž¦
-				console.log("textStatus     : " + textStatus);    // ƒ^ƒCƒ€ƒAƒEƒgAƒp[ƒXƒGƒ‰[‚È‚Ç‚ÌƒGƒ‰[î•ñ‚ð•\Ž¦
-				console.log("errorThrown    : " + errorThrown.message); // —áŠOî•ñ‚ð•\Ž¦
+				alert('Ajaxé€šä¿¡ã«å¤±æ•—ã—ã¾ã—ãŸã€‚');
+				console.log("jqXHR          : " + jqXHR.status); // HTTPã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’è¡¨ç¤º
+				console.log("textStatus     : " + textStatus);    // ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆã€ãƒ‘ãƒ¼ã‚¹ã‚¨ãƒ©ãƒ¼ãªã©ã®ã‚¨ãƒ©ãƒ¼æƒ…å ±ã‚’è¡¨ç¤º
+				console.log("errorThrown    : " + errorThrown.message); // ä¾‹å¤–æƒ…å ±ã‚’è¡¨ç¤º
 			})
-			// Ajax’ÊM‚ª¬Œ÷EŽ¸”s‚Ì‚Ç‚¿‚ç‚Å‚à”­“®
+			// Ajaxé€šä¿¡ãŒæˆåŠŸãƒ»å¤±æ•—ã®ã©ã¡ã‚‰ã§ã‚‚ç™ºå‹•
 			.always( (data) => {
 			});
 		});
@@ -90,19 +94,23 @@
                 'no' :  $('.serchno').val()
 			}
 		})
-		// Ajax’ÊM‚ª¬Œ÷‚µ‚½‚ç”­“®
+		// Ajaxé€šä¿¡ãŒæˆåŠŸã—ãŸã‚‰ç™ºå‹•
 		.done( (data) => {
 			console.log(data);
 			$('.ajaxres').eq(index).val(data);
+			navigator.clipboard.writeText(data);
+			setTimeout(function () {
+				window.open('about:blank', '_self').close();
+			}, 500);
 		})
-		// Ajax’ÊM‚ªŽ¸”s‚µ‚½‚ç”­“®
+		// Ajaxé€šä¿¡ãŒå¤±æ•—ã—ãŸã‚‰ç™ºå‹•
 		.fail( (jqXHR, textStatus, errorThrown) => {
-			alert('Ajax’ÊM‚ÉŽ¸”s‚µ‚Ü‚µ‚½B');
-			console.log("jqXHR          : " + jqXHR.status); // HTTPƒXƒe[ƒ^ƒX‚ð•\Ž¦
-			console.log("textStatus     : " + textStatus);    // ƒ^ƒCƒ€ƒAƒEƒgAƒp[ƒXƒGƒ‰[‚È‚Ç‚ÌƒGƒ‰[î•ñ‚ð•\Ž¦
-			console.log("errorThrown    : " + errorThrown.message); // —áŠOî•ñ‚ð•\Ž¦
+			alert('Ajaxé€šä¿¡ã«å¤±æ•—ã—ã¾ã—ãŸã€‚');
+			console.log("jqXHR          : " + jqXHR.status); // HTTPã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’è¡¨ç¤º
+			console.log("textStatus     : " + textStatus);    // ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆã€ãƒ‘ãƒ¼ã‚¹ã‚¨ãƒ©ãƒ¼ãªã©ã®ã‚¨ãƒ©ãƒ¼æƒ…å ±ã‚’è¡¨ç¤º
+			console.log("errorThrown    : " + errorThrown.message); // ä¾‹å¤–æƒ…å ±ã‚’è¡¨ç¤º
 		})
-		// Ajax’ÊM‚ª¬Œ÷EŽ¸”s‚Ì‚Ç‚¿‚ç‚Å‚à”­“®
+		// Ajaxé€šä¿¡ãŒæˆåŠŸãƒ»å¤±æ•—ã®ã©ã¡ã‚‰ã§ã‚‚ç™ºå‹•
 		.always( (data) => {
 		});
 
