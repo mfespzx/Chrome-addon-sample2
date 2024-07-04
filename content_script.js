@@ -1,4 +1,4 @@
-a"use strict";
+"use strict";
 window.addEventListener("load", (event) => {
     Notification.requestPermission();
     let body = document.getElementById('Content');
@@ -10,11 +10,11 @@ window.addEventListener("load", (event) => {
                 behavior: 'smooth' 
             });
         }
-        let joblist = document.getElementsByClassName('UMNkI');
-            if(joblist){
+        const joblist = document.getElementsByClassName('UMNkI');
+            if(Object.prototype.toString.call(joblist) === "[object HTMLCollection]"){
                 for(var i = 0; i < 10; i++){
                     const str = joblist[i].textContent;
-                    if(str.match(/検索/) || str.match(/コピペ/))){
+                    if(str.match(/検索/) || str.match(/コピペ/)){
                         var cookie = document.cookie;
                         if(cookie.match(/crw_sech\=(.*?)\;/)){
                             const match = cookie.match(/crw_sech\=(.*?)\;/);
@@ -30,17 +30,19 @@ window.addEventListener("load", (event) => {
                         break;
                     }
                 }
-            }
+            } else {
+const notification2 = new Notification(joblist);
+			}
     } else {
         if(location.href.includes("search?")){
-            let joblist = document.getElementsByClassName('p-search-job-media');
-            if(joblist){
+            const joblist = document.getElementsByClassName('p-search-job-media');
+            if(Object.prototype.toString.call(joblist) === "[object HTMLCollection]"){
                 for(var i = 0; i < 10; i++){
                     const str = joblist[i].getElementsByClassName('p-search-job-media__title');
                     let delstr = str[0].getElementsByClassName("p-search-job-media__tags");
                     str[0].removeChild(delstr[0]);
                     const str_af = str[0].textContent;
-                    if(str_af.match(/検索/)){
+                    if(str_af.match(/検索/) || str_af.match(/コピペ/) || str_af.match(/学術/)){
                         var cookie = document.cookie;
                         if(cookie.match(/lan_sech\=(\d{7,})\;/)){
                             const match = cookie.match(/lan_sech\=(\d{7,})\;/);
@@ -59,7 +61,9 @@ window.addEventListener("load", (event) => {
                         break;
                     }
                 }
-            }
+            } else {
+const notification2 = new Notification(joblist);
+			}
         }
     }
 
