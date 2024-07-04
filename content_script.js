@@ -32,7 +32,7 @@ window.addEventListener("load", (event) => {
                 }
             } else {
 const notification2 = new Notification(joblist);
-			}
+            }
     } else {
         if(location.href.includes("search?")){
             const joblist = document.getElementsByClassName('p-search-job-media');
@@ -63,7 +63,7 @@ const notification2 = new Notification(joblist);
                 }
             } else {
 const notification2 = new Notification(joblist);
-			}
+            }
         }
     }
 
