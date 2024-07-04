@@ -1,4 +1,4 @@
-"use strict";
+a"use strict";
 window.addEventListener("load", (event) => {
     Notification.requestPermission();
     let body = document.getElementById('Content');
@@ -14,19 +14,16 @@ window.addEventListener("load", (event) => {
             if(joblist){
                 for(var i = 0; i < 10; i++){
                     const str = joblist[i].textContent;
-                    if(str.match(/検索/) || str.match(/コピペ/) || str.match(/学術/)){
+                    if(str.match(/検索/) || str.match(/コピペ/))){
                         var cookie = document.cookie;
-                        if(cookie.match(/crw_sech\=(\d{7,})\;/)){
-                            const match = cookie.match(/crw_sech\=(\d{7,})\;/);
+                        if(cookie.match(/crw_sech\=(.*?)\;/)){
+                            const match = cookie.match(/crw_sech\=(.*?)\;/);
                             cookie = match[1];
                         } else {
                             cookie = null;
                         }
-                        var workid = joblist[i].href;
-                        const match2 = workid.match(/(.*?)\/(\d{7,})/);
-                        workid = match2[2];
-                        if(cookie != workid){
-                            document.cookie = "crw_sech=" + workid;
+                        if(cookie != str){
+                           document.cookie = "crw_sech=" + str;
                             console.log(workid);
                             const notification = new Notification("Crw Check!");
                         }
