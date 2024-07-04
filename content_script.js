@@ -1,6 +1,6 @@
 "use strict";
 window.addEventListener("load", (event) => {
-	Notification.requestPermission();
+    Notification.requestPermission();
     let body = document.getElementById('Content');
     if(body){
         body.style.background = '#cccccc';
@@ -10,61 +10,61 @@ window.addEventListener("load", (event) => {
                 behavior: 'smooth' 
             });
         }
-		let joblist = document.getElementsByClassName('UMNkI');
-			if(joblist){
-				for(var i = 0; i < 10; i++){
-					const str = joblist[i].textContent;
-					if(str.match(/検索/) || str.match(/コピペ/) || str.match(/学術/)){
-						var cookie = document.cookie;
-						if(cookie.match(/crw_sech\=(\d{7,})\;/)){
-							const match = cookie.match(/crw_sech\=(\d{7,})\;/);
-							cookie = match[1];
-						} else {
-							cookie = null;
-						}
-						var workid = joblist[i].href;
-						const match2 = workid.match(/(.*?)\/(\d{7,})/);
-						workid = match2[2];
-						if(cookie != workid){
-							document.cookie = "crw_sech=" + workid;
-							console.log(workid);
-							const notification = new Notification("Crw Check!");
-						}
-						break;
-					}
-				}
-			}
+        let joblist = document.getElementsByClassName('UMNkI');
+            if(joblist){
+                for(var i = 0; i < 10; i++){
+                    const str = joblist[i].textContent;
+                    if(str.match(/検索/) || str.match(/コピペ/) || str.match(/学術/)){
+                        var cookie = document.cookie;
+                        if(cookie.match(/crw_sech\=(\d{7,})\;/)){
+                            const match = cookie.match(/crw_sech\=(\d{7,})\;/);
+                            cookie = match[1];
+                        } else {
+                            cookie = null;
+                        }
+                        var workid = joblist[i].href;
+                        const match2 = workid.match(/(.*?)\/(\d{7,})/);
+                        workid = match2[2];
+                        if(cookie != workid){
+                            document.cookie = "crw_sech=" + workid;
+                            console.log(workid);
+                            const notification = new Notification("Crw Check!");
+                        }
+                        break;
+                    }
+                }
+            }
     } else {
         if(location.href.includes("search?")){
-			let joblist = document.getElementsByClassName('p-search-job-media');
-			if(joblist){
-				for(var i = 0; i < 10; i++){
-					const str = joblist[i].getElementsByClassName('p-search-job-media__title');
-					let delstr = str[0].getElementsByClassName("p-search-job-media__tags");
-					str[0].removeChild(delstr[0]);
-					const str_af = str[0].textContent;
-					if(str_af.match(/検索/)){
-						var cookie = document.cookie;
-						if(cookie.match(/lan_sech\=(\d{7,})\;/)){
-							const match = cookie.match(/lan_sech\=(\d{7,})\;/);
-							cookie = match[1];
-						} else {
-							cookie = null;
-						}
-						var workid = str[0].href;
-						const match2 = workid.match(/(.*?)\/(\d{7,})/);
-						workid = match2[2];
-						if(cookie != workid){
-							document.cookie = "lan_sech=" + workid;
-							console.log(workid);
-							const notification = new Notification("Lan Check!");
-						}
-						break;
-					}
-				}
-			}
-		}
-	}
+            let joblist = document.getElementsByClassName('p-search-job-media');
+            if(joblist){
+                for(var i = 0; i < 10; i++){
+                    const str = joblist[i].getElementsByClassName('p-search-job-media__title');
+                    let delstr = str[0].getElementsByClassName("p-search-job-media__tags");
+                    str[0].removeChild(delstr[0]);
+                    const str_af = str[0].textContent;
+                    if(str_af.match(/検索/)){
+                        var cookie = document.cookie;
+                        if(cookie.match(/lan_sech\=(\d{7,})\;/)){
+                            const match = cookie.match(/lan_sech\=(\d{7,})\;/);
+                            cookie = match[1];
+                        } else {
+                            cookie = null;
+                        }
+                        var workid = str[0].href;
+                        const match2 = workid.match(/(.*?)\/(\d{7,})/);
+                        workid = match2[2];
+                        if(cookie != workid){
+                            document.cookie = "lan_sech=" + workid;
+                            console.log(workid);
+                            const notification = new Notification("Lan Check!");
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
 
 
    document.body.addEventListener("selectstart", () => {
@@ -85,7 +85,7 @@ window.addEventListener("load", (event) => {
                         searchNum(e, se = "g");
                     }
                 });
-        	}
+            }
         });
 
         function searchNum(e, se){
