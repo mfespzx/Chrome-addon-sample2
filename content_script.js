@@ -1,7 +1,7 @@
 "use strict";
 window.addEventListener("load", function (event) {
     Notification.requestPermission();
-    var body = document.getElementById('Content');
+    const body = document.getElementById('Content');
     if (body && location.href.includes("crowdworks.jp")) { // 一覧画面(CW)
         body.style.background = '#aaaaaa';
         if (location.href.includes("search")) {
@@ -13,29 +13,29 @@ window.addEventListener("load", function (event) {
         }
     }
     else if (location.href.includes("lancers.jp/work/search")) { // 一覧画面(LS)
-        var body2 = document.getElementsByClassName('l-wrapper');
-        var back = body2[0].getElementsByClassName('p-search-job');
-        var back2 = body2[0].getElementsByClassName('p-search-job__right');
+        const body2 = document.getElementsByClassName('l-wrapper');
+        const back = body2[0].getElementsByClassName('p-search-job');
+        const back2 = body2[0].getElementsByClassName('p-search-job__right');
         back[0].style.background = '#999999';
         back2[0].style.background = '#999999';
         if (location.href.includes("search?")) {
-            var joblist = document.getElementsByClassName('p-search-job-media');
+            const joblist = document.getElementsByClassName('p-search-job-media');
             if (Object.prototype.toString.call(joblist) === "[object HTMLCollection]") {
-                for (var i = 0; i < 20; i++) {
+                for (let i = 0; i < 20; i++) {
                     if (joblist[i] !== null) {
-                        var str = joblist[i].getElementsByClassName('p-search-job-media__title');
-                        var delstr = str[0].getElementsByClassName("p-search-job-media__tags");
+                        let str = joblist[i].getElementsByClassName('p-search-job-media__title');
+                        let delstr = str[0].getElementsByClassName("p-search-job-media__tags");
                         str[0].removeChild(delstr[0]);
-                        var str_af = str[0].textContent;
+                        const str_af = str[0].textContent;
                         if (str_af) {
                             str_af.replace(/\s+/g, '');
                             if (str_af.match(/スマホで/) || str_af.match(/検索/) || str_af.match(/コピペ/) || str_af.match(/学術/) || str_af.match(/心理学/) || str_af.match(/ヘッドホン/)) {
-                                var workid = str[0].href;
-                                var match2 = workid.match(/(.*?)\/(\d{7,})/);
+                                let workid = str[0].href;
+                                let match2 = workid.match(/(.*?)\/(\d{7,})/);
                                 if (match2) {
                                     workid = match2[2];
-                                    var lan_url = sessionStorage.getItem('lan_url');
-                                    var lan_sech = sessionStorage.getItem('lan_sech');
+                                    const lan_url = sessionStorage.getItem('lan_url');
+                                    const lan_sech = sessionStorage.getItem('lan_sech');
                                     console.log("url:" + lan_url);
                                     console.log("st:" + str_af);
                                     if (lan_url !== workid) {
@@ -57,16 +57,16 @@ window.addEventListener("load", function (event) {
         }
     }
     function cw_job() {
-        var joblist = document.getElementsByClassName('UMNkI');
+        const joblist = document.getElementsByClassName('UMNkI');
         if (Object.prototype.toString.call(joblist) === "[object HTMLCollection]") {
-            for (var i = 0; i < 20; i++) {
+            for (let i = 0; i < 20; i++) {
                 if (joblist[i] !== null) {
-                    var str = joblist[i].textContent;
-                    var strUrl = joblist[i].href;
+                    const str = joblist[i].textContent;
+                    const strUrl = joblist[i].href;
                     if (str) {
                         if (str.match(/検索/) || str.match(/コピペ/) || str.match(/心理学/) || str.match(/学術/) || str.match(/ヘッドホン/)) {
-                            var crw_url = sessionStorage.getItem('crw_url');
-                            var crw_sech = sessionStorage.getItem('crw_sech');
+                            const crw_url = sessionStorage.getItem('crw_url');
+                            const crw_sech = sessionStorage.getItem('crw_sech');
                             console.log("st:" + str);
                             console.log("url:" + crw_url);
                             if (strUrl !== crw_url) {
@@ -86,15 +86,15 @@ window.addEventListener("load", function (event) {
     }
     if (location.href.includes("lancers.jp/") || location.href.includes("crowdworks.jp/") || location.href.includes("lockkanre.com/")) {
         document.body.addEventListener("selectstart", function () {
-            var fn;
-            var e;
-            var se;
-            var _a, _b;
+            let fn;
+            let e;
+            let se;
+            let _a, _b;
             document.body.addEventListener("keyup", fn = function (e) {
                 e.stopImmediatePropagation();
                 document.body.removeEventListener("keyup", fn);
                 if (e.keyCode === 0x10) {
-                    var selectedText = ((_b = window.getSelection()) === null || _b === void 0 ? void 0 : _b.toString()) || '';
+                    let selectedText = ((_b = window.getSelection()) === null || _b === void 0 ? void 0 : _b.toString()) || '';
                     console.log(selectedText);
                     window.open("http://127.0.0.1/get/getword.php?text=".concat(selectedText), 'getword');
                 }
