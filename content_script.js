@@ -62,16 +62,16 @@ window.addEventListener("load", function (event) {
             for (let i = 0; i < 20; i++) {
                 if (joblist[i] !== null) {
                     const str = joblist[i].textContent;
-                    const strUrl = joblist[i].href;
+                    const str_url = joblist[i].href;
                     if (str) {
                         if (str.match(/検索/) || str.match(/コピペ/) || str.match(/心理学/) || str.match(/学術/) || str.match(/ヘッドホン/)) {
                             const crw_url = sessionStorage.getItem('crw_url');
                             const crw_sech = sessionStorage.getItem('crw_sech');
                             console.log("st:" + str);
                             console.log("url:" + crw_url);
-                            if (strUrl !== crw_url) {
+                            if (str_url !== crw_url) {
                                 sessionStorage.setItem('crw_sech', str);
-                                sessionStorage.setItem('crw_url', strUrl);
+                                sessionStorage.setItem('crw_url', str_url);
                                 new Notification("Crw Check!" + str);
                             }
                             break;
